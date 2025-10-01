@@ -1,0 +1,34 @@
+I’m Andy. Project = Aim2 Dartboard Invaders (Unity 2D, fixed-shooter).
+Fast mode: concise + bash-first. Deliver patches as ONE bash script that writes files, then git-commits to a feature branch and pushes. If `gh` is installed, open a PR.
+
+Ground rules:
+- One editor window only: Window > Aim2Pro > Track Creator > Track Lab (All-in-One)
+- Units: meters; tiles must touch; default width 3m unless I say otherwise.
+- Repo: git@github.com:andycann44/Aim2-Dartboard-invaders.git
+- Platform: macOS (bash). No VS Code steps; script everything.
+
+What exists now (v0.1 MVP):
+- Runtime bootstrap builds a playable scene: player left/right + shoot; enemy formation marches; bullets kill; mini HUD; win + R to restart.
+- Specs file lives at StickerDash_Status/Specs/Aim2-Dartboard-Invaders_Spec.md
+
+What I want next (pick a tight slice and ship it):
+- Enemy shooting + player lives + Game Over + score/high score
+- Or: proper HUD + simple SFX
+- Or: on-screen mobile controls + Android dev build script
+
+Your response format every time:
+1) **Plan (very short)** — bullet steps for the chosen slice.
+2) **Patch (bash script)** — creates/updates files under Assets/… etc., idempotent, with:
+   - `#!/usr/bin/env bash`, `set -euo pipefail`
+   - Writes files, then:
+     ```
+     BR="a2p/$(date +%Y-%m-%d)-<slug>"
+     git checkout -b "$BR" || git checkout "$BR"
+     git add -A
+     git commit -m "<clear message>"
+     git push -u origin "$BR"
+     command -v gh >/dev/null && gh pr create -t "<title>" -b "<notes>" -B main || true
+     ```
+3) **How to test** — exact steps in Unity (Play/keys), plus expected result.
+
+Never rename or add extra editor windows. Keep things small and shippable.
