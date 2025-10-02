@@ -1,2 +1,3 @@
 - 2025-10-01 Specs + New-Chat prompt added for Aim2 Dartboard Invaders.
 - 2025-10-02 Added Aim2Pro Tools: Terminal (⌘T) + GitHub Quick Actions menu; helpers a2p_open_root_terminal.sh, a2p_save.sh
+- 2025-10-02 Updated Spec (date, Done, Changelog) + Prompt note about Quick Actions.

@@ -1,5 +1,5 @@
 # Aim2 Dartboard Invaders — Spec & Roadmap v0.1
-**Date:** 2025-10-01  
+**Date:** 2025-10-02  
 **Repo:** git@github.com:andycann44/Aim2-Dartboard-invaders.git  
 **Company/Brand:** Aim2 (sub-brand Aim2Pro for darts)  
 **Editor Window Rule:** Window → Aim2Pro → Track Creator → Track Lab (All-in-One) only.
@@ -16,6 +16,7 @@ Fixed-shooter (arcade homage) built from our Aim2 template. Clean, fast sessions
 - URP 2D; simple generated sprites (no imported art yet).
 
 ## “Done” Checklist
+- [x] Editor Tools menu (Terminal ⌘T, GitHub Quick Actions)
 - [x] Repo created & wired to GitHub
 - [x] Visible Meta Files + Force Text (Unity project hygiene)
 - [x] Runtime playable loop (player, bullets, invaders, win/restart)
@@ -58,3 +59,6 @@ Fixed-shooter (arcade homage) built from our Aim2 template. Clean, fast sessions
 
 ## Notes
 Keep one editor window (Track Lab). Units default to meters; tiles must touch; width 3m unless overridden. Use `./a2p_snap.sh` before risky changes. Tag releases (`v0.1.0`, `v0.2.0`, …) instead of making new repos.
+
+## Changelog
+- 2025-10-02: Added Editor Tools menu (Terminal ⌘T, GitHub Quick Actions); updated New-Chat prompt.
