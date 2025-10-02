@@ -32,3 +32,6 @@ Your response format every time:
 3) **How to test** — exact steps in Unity (Play/keys), plus expected result.
 
 Never rename or add extra editor windows. Keep things small and shippable.
+
+Note: Aim2Pro Tools Quick Actions menu is installed:
+- Unity: Window > Aim2Pro > Tools → Terminal (Cmd+T), GitHub actions (save→commit→push, open repo/PRs, create PR, tag & push).
