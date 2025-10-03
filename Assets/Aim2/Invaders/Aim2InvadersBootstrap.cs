@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem; // NEW
+using UnityEngine.SceneManagement;
 
 namespace Aim2.Invaders {
   public class Aim2InvadersBootstrap : MonoBehaviour {
@@ -32,33 +34,32 @@ namespace Aim2.Invaders {
       var formation = new GameObject("EnemyFormation");
       formation.AddComponent<EnemyFormation>();
 
-      // Simple HUD
-      var hud = new GameObject("HUD").AddComponent<HUDMini>();
+      // HUD
+      new GameObject("HUD").AddComponent<HUDMini>();
     }
   }
 
-  // Minimal OnGUI HUD (score = enemies destroyed)
+  // Minimal HUD with restart on 'R' (new Input System)
   public class HUDMini : MonoBehaviour {
     int _startCount;
-    int _lastCount;
-    float _y;
 
     void Start() {
       _startCount = GameObject.FindObjectsOfType<EnemyMarker>().Length;
-      _lastCount  = _startCount;
+    }
+
+    void Update() {
+      int alive = GameObject.FindObjectsOfType<EnemyMarker>().Length;
+      if (alive == 0 && Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame) {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+      }
     }
 
     void OnGUI() {
       int alive = GameObject.FindObjectsOfType<EnemyMarker>().Length;
       int destroyed = _startCount - alive;
-      string msg = $"Invaders destroyed: {destroyed} / {_startCount}";
-      GUI.Label(new Rect(10,10,380,30), msg);
-
+      GUI.Label(new Rect(10,10,380,30), $"Invaders destroyed: {destroyed} / {_startCount}");
       if (alive == 0) {
         GUI.Label(new Rect(10,40,320,30), "YOU WIN — Press R to restart");
-        if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.R) {
-          UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-        }
       }
     }
   }

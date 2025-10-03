@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem; // NEW
 
 namespace Aim2.Invaders {
   public class PlayerController : MonoBehaviour {
@@ -12,22 +13,35 @@ namespace Aim2.Invaders {
     void Start() { _cam = Camera.main; }
 
     void Update() {
-      // Horizontal move (A/D or arrows)
-      float h = Input.GetAxisRaw("Horizontal");
+      // Horizontal from Gamepad/Keyboard (new Input System)
+      float h = 0f;
+      if (Gamepad.current != null) {
+        h = Gamepad.current.leftStick.ReadValue().x;
+      }
+      if (Keyboard.current != null) {
+        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) h -= 1f;
+        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) h += 1f;
+      }
+      h = Mathf.Clamp(h, -1f, 1f);
       transform.Translate(Vector3.right * h * moveSpeed * Time.deltaTime, Space.World);
 
       // Clamp to screen
       if (_cam) {
         float halfH = _cam.orthographicSize;
         float halfW = halfH * _cam.aspect;
-        Vector3 p = transform.position;
+        var p = transform.position;
         p.x = Mathf.Clamp(p.x, -halfW + 0.5f, halfW - 0.5f);
         transform.position = p;
       }
 
-      // Shoot
+      // Shoot (space/mouse left/gamepad south)
       _cool -= Time.deltaTime;
-      if ((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && _cool <= 0f) {
+      bool fire = false;
+      if (Keyboard.current != null && Keyboard.current.spaceKey.isPressed) fire = true;
+      if (Mouse.current != null && Mouse.current.leftButton.isPressed) fire = true;
+      if (Gamepad.current != null && Gamepad.current.buttonSouth.isPressed) fire = true;
+
+      if (fire && _cool <= 0f) {
         _cool = fireCooldown;
         Fire();
       }
