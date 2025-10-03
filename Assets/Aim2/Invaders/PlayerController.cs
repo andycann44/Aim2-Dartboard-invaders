@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // NEW
+using UnityEngine.InputSystem;
 
 namespace Aim2.Invaders {
   public class PlayerController : MonoBehaviour {
@@ -15,9 +15,7 @@ namespace Aim2.Invaders {
     void Update() {
       // Horizontal from Gamepad/Keyboard (new Input System)
       float h = 0f;
-      if (Gamepad.current != null) {
-        h = Gamepad.current.leftStick.ReadValue().x;
-      }
+      if (Gamepad.current != null) h = Gamepad.current.leftStick.ReadValue().x;
       if (Keyboard.current != null) {
         if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) h -= 1f;
         if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) h += 1f;
@@ -34,7 +32,7 @@ namespace Aim2.Invaders {
         transform.position = p;
       }
 
-      // Shoot (space/mouse left/gamepad south)
+      // Shoot
       _cool -= Time.deltaTime;
       bool fire = false;
       if (Keyboard.current != null && Keyboard.current.spaceKey.isPressed) fire = true;
@@ -48,7 +46,6 @@ namespace Aim2.Invaders {
     }
 
     void Fire() {
-      // Create a white 1x1 sprite on the fly
       var tex = new Texture2D(1,1, TextureFormat.RGBA32, false);
       tex.SetPixel(0,0, Color.white); tex.Apply();
       var spr = Sprite.Create(tex, new Rect(0,0,1,1), new Vector2(0.5f,0.5f), 1f);

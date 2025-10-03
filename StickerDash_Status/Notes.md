@@ -14,3 +14,4 @@ main
 - 2025-10-02 Shortcuts: register Cmd+T (Terminal) + Cmd+Shift+T backup, Cmd+Shift+P (Auto PR)
 >>>>>>> c30c74a (Restore Notes.md after conflict (keep all entries))
 - 2025-10-03 Fix: switch to new Input System (PlayerController & HUD restart).
+- 2025-10-03 Gameplay: levels auto-increase enemies & speed; slower Level 1.

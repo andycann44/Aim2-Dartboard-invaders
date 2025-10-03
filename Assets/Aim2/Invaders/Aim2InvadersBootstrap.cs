@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // NEW
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace Aim2.Invaders {
@@ -31,35 +31,41 @@ namespace Aim2.Invaders {
       player.AddComponent<PlayerController>();
 
       // Enemy formation
-      var formation = new GameObject("EnemyFormation");
-      formation.AddComponent<EnemyFormation>();
+      var formation = new GameObject("EnemyFormation").AddComponent<EnemyFormation>();
+
+      // Game controller
+      var gc = new GameObject("GameController").AddComponent<GameController>();
+      gc.formation = formation;
+      gc.player = player.transform;
 
       // HUD
       new GameObject("HUD").AddComponent<HUDMini>();
     }
   }
 
-  // Minimal HUD with restart on 'R' (new Input System)
+  // Minimal HUD showing level + restart hint on win
   public class HUDMini : MonoBehaviour {
     int _startCount;
-
-    void Start() {
-      _startCount = GameObject.FindObjectsOfType<EnemyMarker>().Length;
-    }
 
     void Update() {
       int alive = GameObject.FindObjectsOfType<EnemyMarker>().Length;
       if (alive == 0 && Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame) {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
       }
+
+      // When a new wave spawns, refresh baseline
+      int total = GameObject.FindObjectsOfType<EnemyMarker>().Length;
+      if (total > _startCount) _startCount = total;
     }
 
     void OnGUI() {
       int alive = GameObject.FindObjectsOfType<EnemyMarker>().Length;
-      int destroyed = _startCount - alive;
-      GUI.Label(new Rect(10,10,380,30), $"Invaders destroyed: {destroyed} / {_startCount}");
+      int destroyed = Mathf.Max(0, _startCount - alive);
+      int level = GameController.Instance ? GameController.Instance.currentLevel : 1;
+
+      GUI.Label(new Rect(10,10,420,24), $"Level {level} — Destroyed: {destroyed}/{_startCount}");
       if (alive == 0) {
-        GUI.Label(new Rect(10,40,320,30), "YOU WIN — Press R to restart");
+        GUI.Label(new Rect(10,34,380,24), "Wave cleared! Next level incoming…  (R to restart)");
       }
     }
   }
