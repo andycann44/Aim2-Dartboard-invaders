@@ -1,64 +1,62 @@
-# Aim2 Dartboard Invaders — Spec & Roadmap v0.1
-**Date:** 2025-10-02  
+# Aim2 Dartboard Invaders — Spec & Roadmap
+**Date:** 2025-10-04  
 **Repo:** git@github.com:andycann44/Aim2-Dartboard-invaders.git  
-**Company/Brand:** Aim2 (sub-brand Aim2Pro for darts)  
-**Editor Window Rule:** Window → Aim2Pro → Track Creator → Track Lab (All-in-One) only.
+**Brand:** Aim2 (Aim2Pro = darts sub-brand)  
+**Editor Window:** Window → Aim2Pro → Track Creator → Track Lab (All-in-One)
 
 ## Overview
-Fixed-shooter (arcade homage) built from our Aim2 template. Clean, fast sessions (60–90s), original IP (Johnny + Aim2 style), ethical monetization.
+Fixed-shooter homage using our Aim2 template. Short 60–90s sessions, original art/names, ethical monetization.
 
-## Current Implementation (MVP runtime bootstrap)
-- Bootstrap builds a playable scene at runtime.
-- Player: left/right move (A/D or arrows), shoot (Space/mouse), screen-edge clamp.
-- Bullet: kinematic, destroys enemies on hit.
-- Enemy formation: grid spawns, marches left↔right, steps down at edges.
-- HUD mini: shows destroyed count; win state + press **R** to restart.
-- URP 2D; simple generated sprites (no imported art yet).
+## Current Implementation
+- **Bootstrap runtime scene** (no manual setup).
+- **Input System** controls (keyboard/mouse/gamepad).
+- **Bullets/enemies use cached sprite** (stability; no runtime texture churn).
+- **Enemy Formation**: marches left↔right, steps down at bounds.
+- **Level progression**: clearing a wave spawns the next with **+columns** (and **+row every 3 levels**), and higher speed.  
+  - Level 1 **slower**: ; ramp:  speed per level.
+- **HUD mini**: shows Level N, destroyed/total; restart on **R**.
+- **Tools**: Quick Actions (Terminal ⌘T, Save→Commit→Push), Auto-PR (⌘⇧P).
+- **Repo hygiene**: Visible Meta Files + Force Text.
 
-## “Done” Checklist
-- [x] Editor Tools menu (Terminal ⌘T, GitHub Quick Actions)
-- [x] Repo created & wired to GitHub
-- [x] Visible Meta Files + Force Text (Unity project hygiene)
-- [x] Runtime playable loop (player, bullets, invaders, win/restart)
-- [x] Specs + New-Chat starter files added (this commit)
+## Done ✅
+- Repo on GitHub (LFS enabled)
+- Input System migration
+- Level progression & pacing (slower L1; gentle ramp)
+- Sprite cache (stability)
+- Unity Tools menus + shortcuts (⌘T, ⌘⇧P)
+- Specs/Notes tracked in 
 
-## To-Do (next passes)
+## To-Do ▶
 **Core gameplay**
-- [ ] Enemy shots + player hit detection
-- [ ] Lives (e.g., 3) + Game Over screen
-- [ ] Score system (per kill) + High Score (PlayerPrefs)
-- [ ] Speed up as invaders die, wave progression
+- Enemy shots + player lives + Game Over
+- Score per kill + High Score (PlayerPrefs)
+- Speed-up per remaining invaders, wave progression polish
 
 **UX/UI**
-- [ ] Main menu, Pause, Settings
-- [ ] Proper HUD (lives, score, wave), fonts/icons (Aim2 style)
+- Main Menu, Pause, proper HUD (lives/score/level)
 
 **Audio**
-- [ ] SFX (shoot, hit, step, win/lose), music loop, simple mixer
+- SFX (shoot/hit/step/win/lose), music loop, basic mixer
 
 **Art**
-- [ ] Swap generated shapes for Aim2 sprites (Johnny ship + enemies)
-- [ ] Palette + background, small VFX on hit
+- Replace temp sprites with Aim2 assets (player/enemies/bg/VFX)
 
-**Monetization & Growth (stubs first)**
-- [ ] Rewarded continue (stub), Remove Ads (non-consumable), Starter Pack
-- [ ] “More Games” panel (reads StickerDash_Status/CrossPromo/more_games.json)
-- [ ] Basic analytics events (session/level/kill/death/revive)
+**Monetization**
+- Rewarded continue (stub→live), Remove Ads, Starter Pack
+- “More Games” panel (reads CrossPromo JSON), analytics events
 
-**Mobile readiness**
-- [ ] On-screen controls (left/right/shoot) + aspect handling
-- [ ] Android/iOS dev builds; tag v0.1.0
+**Mobile**
+- On-screen controls + aspect handling, Android/iOS dev builds
 
 **Compliance**
-- [ ] Privacy link + consent (GDPR/ATT), restore purchases (iOS)
+- Privacy link + consent (GDPR/ATT), restore purchases (iOS)
 
 ## Definition of Done (v0.2 “Playable Mobile”)
-- Player lives, enemy fire, game over, score/high score.
-- One rewarded continue (stub), Remove Ads button visible.
-- Android dev build installs; 60 FPS on test phone; no red console errors.
-
-## Notes
-Keep one editor window (Track Lab). Units default to meters; tiles must touch; width 3m unless overridden. Use `./a2p_snap.sh` before risky changes. Tag releases (`v0.1.0`, `v0.2.0`, …) instead of making new repos.
+- Lives, enemy fire, Game Over, score/high score
+- Rewarded continue (stub) + Remove Ads button visible
+- Android dev build @ 60fps, no red console errors
 
 ## Changelog
-- 2025-10-02: Added Editor Tools menu (Terminal ⌘T, GitHub Quick Actions); updated New-Chat prompt.
+- 2025-10-04: Stability + pacing pass (sprite cache; slower L1, gentler ramp). Spec refreshed.
+- 2025-10-02: Tools menus & shortcuts; spec/prompt updates.
+- 2025-10-01: Initial MVP + repo/docs.

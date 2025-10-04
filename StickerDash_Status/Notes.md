@@ -15,3 +15,4 @@ main
 >>>>>>> c30c74a (Restore Notes.md after conflict (keep all entries))
 - 2025-10-03 Fix: switch to new Input System (PlayerController & HUD restart).
 - 2025-10-03 Gameplay: levels auto-increase enemies & speed; slower Level 1.
+- 2025-10-04 Checkpoint: updated spec with level progression & stability; saved state for later.
